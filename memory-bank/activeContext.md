@@ -1,27 +1,18 @@
 # Active Development Context
 
 ## Current Session Context
-[2025-03-16 11:11 AM SGT]
+[2025-03-17 6:26 AM AST]
 
 ## Recent Changes
-- Implemented cart functionality:
-  - Created CartContext for state management
-  - Added CartIcon component in header
-  - Created shared Header component
-  - Updated App.tsx with CartProvider and layout
-  - Integrated cart functionality in ProductDetails
-  - Connected Cart page with context
-- Completed Tailwind CSS configuration:
-  - Created tailwind.config.js with proper content paths
-  - Updated index.css with Tailwind directives and custom styles
-  - Added postcss.config.js for Tailwind and autoprefixer
-- Created all core page components:
-  - Home.tsx: Landing page with featured stores
-  - StoreList.tsx: Store directory with category filtering
-  - StoreDetails.tsx: Individual store view with products
-  - ProductDetails.tsx: Product view with add to cart
-  - Cart.tsx: Shopping cart with quantity management
-  - Checkout.tsx: PayPal payment integration
+- Updated color scheme and backgrounds:
+  - Added blue-975 color to Tailwind config (rgb(8 16 39))
+  - Set dark blue background on Home page root and sections
+  - Reverted --color-background variable to original (for StoreDetails page only)
+  - Ensured consistent dark blue theme across Home page sections
+- Previous Changes:
+  - Implemented cart functionality
+  - Completed Tailwind CSS configuration
+  - Created all core page components
 
 ## Current Goals
 - Add data fetching for products and stores
