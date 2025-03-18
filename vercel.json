@@ -1,15 +1,7 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "mall-app/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "mall-app/dist",
-        "buildCommand": "cd mall-app && npm install && npm run build"
-      }
-    }
-  ],
+  "buildCommand": "cd mall-app && npm install && npm run build",
+  "outputDirectory": "mall-app/dist",
   "routes": [
     {
       "handle": "filesystem"
