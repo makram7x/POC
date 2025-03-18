@@ -179,6 +179,19 @@ const Home: React.FC = () => {
         position: relative;
       }
 
+      #deals-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      .hero-content {
+        padding-top: max(4vh, 2rem);
+        padding-bottom: max(4vh, 2rem);
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
       .typewriter.animate {
         animation: typewriter 2s steps(12, end) 1.3s forwards,
                   blink 0.75s step-end infinite;
@@ -220,9 +233,9 @@ const Home: React.FC = () => {
     <div className="min-h-screen">
       {/* Hero Section with Background Image */}
       <section
-        className="relative overflow-hidden hero-background hero-image-fade-in w-full"
+        className="relative overflow-x-hidden overflow-y-auto hero-background hero-image-fade-in w-full"
         ref={heroSection.ref}
-        style={{ minHeight: "75vh" }}
+        style={{ minHeight: "fit-content", paddingBottom: "4rem" }}
       >
         <div className="container mx-auto px-4 py-16 md:py-32 hero-content">
           <div className="text-center">
@@ -259,25 +272,28 @@ const Home: React.FC = () => {
                 }`}
                 style={{ transitionDelay: "1800ms" }}
               >
-                <div className="flex items-center">
+                <div className="flex items-center px-2">
                   <div
                     id="deals-container"
-                    className="flex overflow-x-auto scroll-smooth"
+                    className="flex overflow-x-auto scroll-smooth pb-4 -mx-2"
                     style={{
                       scrollSnapType: "x mandatory",
                       WebkitOverflowScrolling: "touch",
-                      width: "100%",
+                      width: "calc(100% + 1rem)",
+                      msOverflowStyle: "none",
+                      scrollbarWidth: "none"
                     }}
                   >
                     {deals.map((deal, index) => (
                       <div
                         key={index}
-                        className={`flex-none w-[300px] h-[150px] bg-white/10 backdrop-blur-sm rounded-xl mx-1 overflow-hidden scroll-snap-align-start delayed-animation ${
+                        className={`flex-none w-[280px] min-h-[120px] max-h-[140px] bg-white/10 backdrop-blur-sm rounded-xl mx-2 overflow-hidden scroll-snap-align-start delayed-animation ${
                           animationsReady ? "animate" : ""
                         }`}
                         style={{
                           transitionDelay: `${2000 + index * 100}ms`,
                           scrollSnapAlign: "start",
+                          height: "auto"
                         }}
                       >
                         <div className="flex h-full">
@@ -306,7 +322,7 @@ const Home: React.FC = () => {
 
             <Link
               to="/stores"
-              className={`inline-block bg-blue-600 text-white px-8 py-3 mt-4 rounded-lg hover:bg-blue-700 transition-all duration-500 transform hover:scale-105 delayed-animation ${
+              className={`inline-block bg-blue-600 text-white px-8 py-3 mt-4 mb-8 rounded-lg hover:bg-blue-700 transition-all duration-500 transform hover:scale-105 delayed-animation ${
                 animationsReady ? "animate" : ""
               }`}
               style={{ transitionDelay: "1600ms" }}
@@ -319,7 +335,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Content Container - overlays the hero section */}
-      <div className="relative -mt-56 bg-blue-975 rounded-t-[48px] z-10">
+      <div className="relative -mt-32 bg-blue-975 rounded-t-[48px] z-10 pt-8">
         {/* Featured Store Section */}
         <section
           className="pt-6 pb-12 featured-store-section"
