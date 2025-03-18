@@ -538,7 +538,7 @@ const Home: React.FC = () => {
 
         {/* Call to Action */}
         <section
-          className="bg-orange-600 text-white py-16 overflow-hidden rounded-b-[48px]"
+          className="bg-orange-600 text-white py-16 overflow-hidden "
           ref={ctaSection.ref}
         >
           <div className="container mx-auto px-4 text-center">

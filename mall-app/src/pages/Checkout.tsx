@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import {
   PayPalButtons,
@@ -55,21 +56,7 @@ const Checkout: React.FC = () => {
     Partial<CreditCardDetails>
   >({});
 
-  // Placeholder data - will be replaced with cart context
-  const cartItems: CartItem[] = [
-    {
-      id: "1",
-      name: "Classic T-Shirt",
-      price: 29.99,
-      quantity: 2,
-    },
-    {
-      id: "2",
-      name: "Leather Wallet",
-      price: 49.99,
-      quantity: 1,
-    },
-  ];
+  const { items: cartItems, clearCart } = useCart();
 
   useEffect(() => {
     // Set a small delay to allow for the initial loading animation
@@ -109,9 +96,17 @@ const Checkout: React.FC = () => {
     setPaymentFailed(false);
 
     try {
-      // Will be implemented with Firebase
+      // Store order details and clear cart
+      const orderSummary = {
+        orderId: `ORD-${Math.floor(Math.random() * 10000)}`,
+        date: new Date().toLocaleDateString(),
+        total: total,
+        items: cartItems.reduce((sum, item) => sum + item.quantity, 0),
+        email: ('payer' in details) ? details.payer.email_address : "customer@example.com"
+      };
+      sessionStorage.setItem('orderSummary', JSON.stringify(orderSummary));
       console.log("Payment successful:", details);
-      // Clear cart and redirect to success page
+      clearCart();
       setTimeout(() => {
         navigate("/checkout/success");
       }, 1000); // Delay for animation
@@ -418,6 +413,7 @@ const Checkout: React.FC = () => {
                   forceReRender={[total.toString()]}
                   createOrder={(_, actions) => {
                     return actions.order.create({
+                      intent: "CAPTURE",
                       purchase_units: [
                         {
                           amount: {
