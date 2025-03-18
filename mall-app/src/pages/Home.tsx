@@ -334,7 +334,7 @@ const Home: React.FC = () => {
               }`}
               style={{ transitionDelay: "200ms" }}
             >
-              Featured Store
+              Featured Stores
             </h2>
 
             {featuredStore ? (
