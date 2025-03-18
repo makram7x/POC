@@ -281,7 +281,7 @@ const Home: React.FC = () => {
                       WebkitOverflowScrolling: "touch",
                       width: "calc(100% + 1rem)",
                       msOverflowStyle: "none",
-                      scrollbarWidth: "none"
+                      scrollbarWidth: "none",
                     }}
                   >
                     {deals.map((deal, index) => (
@@ -293,7 +293,7 @@ const Home: React.FC = () => {
                         style={{
                           transitionDelay: `${2000 + index * 100}ms`,
                           scrollSnapAlign: "start",
-                          height: "auto"
+                          height: "auto",
                         }}
                       >
                         <div className="flex h-full">
@@ -322,7 +322,7 @@ const Home: React.FC = () => {
 
             <Link
               to="/stores"
-              className={`inline-block bg-blue-600 text-white px-8 py-3 mt-4 mb-8 rounded-lg hover:bg-blue-700 transition-all duration-500 transform hover:scale-105 delayed-animation ${
+              className={`inline-block bg-blue-600 text-white px-8 py-3 mt-8 mb-16 rounded-lg hover:bg-blue-700 transition-all duration-500 transform hover:scale-105 delayed-animation ${
                 animationsReady ? "animate" : ""
               }`}
               style={{ transitionDelay: "1600ms" }}
@@ -331,7 +331,7 @@ const Home: React.FC = () => {
             </Link>
           </div>
         </div>
-        <div style={{ paddingBottom: "2rem" }}></div> {/* Added padding */}
+        <div style={{ paddingBottom: 0 }}></div> {/* Added padding */}
       </section>
 
       {/* Content Container - overlays the hero section */}
