@@ -11,8 +11,16 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/assets/(.*)",
+      "dest": "mall-app/dist/assets/$1"
+    },
+    {
+      "src": "/(.+\\.(?:ico|png|jpg|jpeg|webp|svg|gif|tiff|js|css|woff|woff2)$)",
       "dest": "mall-app/dist/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "mall-app/dist/index.html"
     }
   ]
 }
