@@ -1,7 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import SplashScreen from "./components/SplashScreen";
 import { CartProvider } from "./context/CartContext";
-import Header from "./components/Header";
-
+import { StoreThemeProvider } from "./context/StoreThemeContext";
+import { Layout } from "./components/Layout";
 import Home from "./pages/Home";
 import StoreList from "./pages/StoreList";
 import StoreDetails from "./pages/StoreDetails";
@@ -12,40 +14,57 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailed from "./pages/PaymentFailed";
 import { ProductDataProvider } from "./context/ProductDataContext";
 
-function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      <main className="container mx-auto px-4 py-8">{children}</main>
-    </div>
-  );
-}
+const App: React.FC = () => {
+  const [showSplash, setShowSplash] = useState(true);
 
-function App() {
+  const handleSplashFinish = () => {
+    setShowSplash(false);
+  };
+
   return (
-    <ProductDataProvider>
-      <CartProvider>
-        <BrowserRouter>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/stores" element={<StoreList />} />
-              <Route path="/stores/:id" element={<StoreDetails />} />
-              <Route path="/products/:id" element={<ProductDetails />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/checkout/success" element={<PaymentSuccess />} />
-              <Route
-                path="/checkout/failed"
-                element={<PaymentFailed errorMessage={"Insuffecient funds"} />}
-              />
-              {/* We don't need a dedicated route for payment failure since it's handled as a component within the checkout page */}
-            </Routes>
-          </Layout>
-        </BrowserRouter>
-      </CartProvider>
-    </ProductDataProvider>
+    <>
+      {showSplash && <SplashScreen onFinish={handleSplashFinish} />}
+
+      <div
+        className={`transition-opacity duration-300 ${
+          showSplash ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <Router>
+          <ProductDataProvider>
+            <StoreThemeProvider>
+              <CartProvider>
+                <Routes>
+                  {/* StoreDetails route is outside Layout to hide navbar */}
+                  <Route path="/stores/:id" element={<StoreDetails />} />
+
+                  {/* All other routes use Layout component with navbar */}
+                  <Route element={<Layout />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/stores" element={<StoreList />} />
+                    <Route path="/products/:id" element={<ProductDetails />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/checkout/success" element={<PaymentSuccess />} />
+                    <Route
+                      path="/checkout/failed"
+                      element={
+                        <PaymentFailed
+                          errorMessage={"Insufficient funds"}
+                          onRetry={() => {}}
+                          onChangeMethod={() => {}}
+                        />
+                      }
+                    />
+                  </Route>
+                </Routes>
+              </CartProvider>
+            </StoreThemeProvider>
+          </ProductDataProvider>
+        </Router>
+      </div>
+    </>
   );
-}
+};
 
 export default App;

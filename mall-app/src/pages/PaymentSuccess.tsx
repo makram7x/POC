@@ -11,12 +11,20 @@ interface OrderSummary {
 
 const PaymentSuccess: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [orderDetails, setOrderDetails] = useState<OrderSummary>({
-    orderId: `ORD-${Math.floor(Math.random() * 10000)}`,
-    date: new Date().toLocaleDateString(),
-    total: 109.97, // This would normally come from your order context/state
-    items: 3,
-    email: "customer@example.com", // This would normally come from user context/state
+  const [orderDetails, setOrderDetails] = useState<OrderSummary>(() => {
+    const savedOrder = sessionStorage.getItem('orderSummary');
+    if (savedOrder) {
+      const order = JSON.parse(savedOrder);
+      sessionStorage.removeItem('orderSummary'); // Clear after reading
+      return order;
+    }
+    return {
+      orderId: `ORD-${Math.floor(Math.random() * 10000)}`,
+      date: new Date().toLocaleDateString(),
+      total: 0,
+      items: 0,
+      email: "customer@example.com"
+    };
   });
 
   useEffect(() => {
