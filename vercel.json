@@ -5,22 +5,26 @@
       "src": "mall-app/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "mall-app/dist",
+        "buildCommand": "cd mall-app && npm install && npm run build"
       }
     }
   ],
   "routes": [
     {
+      "handle": "filesystem"
+    },
+    {
       "src": "/assets/(.*)",
-      "dest": "mall-app/dist/assets/$1"
+      "dest": "/assets/$1"
     },
     {
       "src": "/(.+\\.(?:ico|png|jpg|jpeg|webp|svg|gif|tiff|js|css|woff|woff2)$)",
-      "dest": "mall-app/dist/$1"
+      "dest": "/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "mall-app/dist/index.html"
+      "dest": "/index.html"
     }
   ]
 }
