@@ -5,7 +5,7 @@ import backgroundGif from "../assets/backgroundgif.gif"; // Import the GIF from 
 import { deals } from "../data/dealsData";
 
 // Enhanced InView hook with more reliable detection
-const useInView = (options = {}) => {
+const useInView = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(false);
 

@@ -9,13 +9,6 @@ import {
 } from "@paypal/react-paypal-js";
 import PaymentFailed from "./PaymentFailed";
 
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-}
-
 interface PayPalOrderDetails {
   id: string;
   status: string;
@@ -36,7 +29,6 @@ const Checkout: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPageLoaded, setIsPageLoaded] = useState(false);
-  const [sdkReady, setSdkReady] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<"paypal" | "credit">(
     "paypal"
   );
@@ -430,7 +422,7 @@ const Checkout: React.FC = () => {
                       await handlePaymentSuccess(details as PayPalOrderDetails);
                     }
                   }}
-                  onError={(err) => {
+                  onError={() => {
                     handlePaymentError({
                       message:
                         "PayPal payment failed. Please try again or use a different payment method.",

@@ -11,7 +11,7 @@ interface OrderSummary {
 
 const PaymentSuccess: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [orderDetails, setOrderDetails] = useState<OrderSummary>(() => {
+  const [orderDetails, _] = useState<OrderSummary>(() => {
     const savedOrder = sessionStorage.getItem('orderSummary');
     if (savedOrder) {
       const order = JSON.parse(savedOrder);

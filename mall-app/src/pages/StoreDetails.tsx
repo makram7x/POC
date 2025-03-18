@@ -12,7 +12,7 @@ const StoreDetails: React.FC = () => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const { getStore, getStoreProducts } = useProductData();
-  const { applyTheme, colors } = useStoreTheme();
+  const { applyTheme } = useStoreTheme();
 
   const [store, setStore] = useState<Store | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
